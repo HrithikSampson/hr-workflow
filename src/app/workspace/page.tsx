@@ -1,3 +1,5 @@
+"use client";
+import { Suspense } from "react";
 import Workspace from "@/components/Workspace";
 import Navbar from "@/components/Navbar";
 import NodeTemplatesSidebar from "@/components/NodeTemplatesSidebar";
@@ -9,7 +11,9 @@ export default function WorkspacePage() {
       <Navbar />
       <div className={styles.workspaceContainer}>
         <NodeTemplatesSidebar />
-        <Workspace />
+        <Suspense fallback={<div>Loading workspace...</div>}>
+          <Workspace />
+        </Suspense>
       </div>
     </div>
   );

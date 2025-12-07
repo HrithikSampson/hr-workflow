@@ -1,229 +1,243 @@
-# Chatbot Flow Builder
+# HR Workflow Designer
 
-## Project Overview
+Visual workflow builder for HR processes with node-based canvas, dynamic forms, and workflow simulation.
 
-This project is a **React-based Chatbot Flow Builder** developed as part of the BiteSpeed Frontend Task. It provides a visual, drag-and-drop interface for creating and managing chatbot conversation flows by connecting multiple message nodes together to determine their execution order.
+## How to Run
 
-**Live Demo:** [https://bite-speed-assignment-lb849ii4t-hrithiks-projects-a05d4764.vercel.app/](https://bite-speed-assignment-lb849ii4t-hrithiks-projects-a05d4764.vercel.app/)
-
-## Problem Statement
-
-The goal was to build a simple yet extensible chatbot flow builder that allows users to:
-- Visually design chatbot conversation flows
-- Connect multiple text message nodes to create conversation paths
-- Edit and manage message content through an intuitive interface
-- Validate flow integrity before saving
-- Create a foundation that can be easily extended with additional node types
-
-## Key Features
-
-### 🎯 Core Functionality
-- **Visual Flow Builder**: Drag-and-drop interface for creating chatbot flows
-- **Text Message Nodes**: Support for multiple text message nodes in a single flow
-- **Node Connections**: Connect nodes using edges to define conversation flow
-- **Real-time Editing**: Click on any node to edit its content instantly
-- **Flow Validation**: Ensures flow integrity before saving
-- **Persistent State**: Save and manage flow configurations
-
-### 🔧 Technical Features
-- **Extensible Architecture**: Designed to easily accommodate new node types
-- **React Flow Integration**: Built using the powerful React Flow library
-- **Component-based Design**: Modular components for easy maintenance and extension
-- **State Management**: Efficient state handling for complex flow operations
-- **Responsive Design**: Works across different screen sizes
-
-## Architecture & Components
-
-### Core Components
-
-#### 1. **Flow Builder (Main Component)**
-- Central component that orchestrates the entire flow building experience
-- Manages the canvas where nodes and edges are rendered
-- Handles node selection, drag-and-drop operations, and flow state
-
-#### 2. **Nodes Panel**
-- Contains draggable node types that can be added to the flow
-- Currently features Text Message nodes
-- Designed to be extensible for future node types (image, video, conditional, etc.)
-
-#### 3. **Settings Panel**
-- Dynamic panel that replaces the Nodes Panel when a node is selected
-- Provides text editing capabilities for the selected node
-- Can be extended to support different property types for various node kinds
-
-#### 4. **Text Message Node**
-- Custom node component representing a text message in the chatbot flow
-- Features source and target handles for connections
-- Displays message content and handles visual feedback
-
-#### 5. **Edge System**
-- Custom edges that connect nodes together
-- Implements the rule that each source handle can only have one outgoing edge
-- Target handles can accept multiple incoming edges
-
-### Technical Specifications
-
-#### Node Handle Rules
-- **Source Handle**: Can only have **one edge originating** from it
-- **Target Handle**: Can have **multiple edges connecting** to it
-- This ensures proper flow control and prevents ambiguous conversation paths
-
-#### Flow Validation
-The application implements validation logic to ensure:
-- No nodes with empty target handles exist (except for start nodes)
-- All nodes are properly connected in a meaningful conversation flow
-- Proper error messaging when validation fails
-
-## Technology Stack
-
-- **Frontend Framework**: Next.js (React 18+)
-- **Flow Library**: React Flow
-- **Styling**: CSS Modules / Tailwind CSS
-- **State Management**: React Hooks (useState, useCallback)
-- **Build Tool**: Next.js built-in tooling
-- **Deployment**: Vercel
-
-## Installation & Setup
-
-### Prerequisites
-- Node.js (version 14 or higher)
-- npm, yarn, pnpm, or bun
-
-### Getting Started
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/HrithikSampson/Workflow.git
-   cd Workflow
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   # or
-   pnpm install
-   ```
-
-3. **Run the development server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   ```
-
-4. **Open the application**
-   Navigate to [http://localhost:3000](http://localhost:3000) in your browser
-
-## Usage Guide
-
-### Building a Chatbot Flow
-
-1. **Adding Nodes**
-   - Drag a Text Message node from the Nodes Panel
-   - Drop it onto the canvas to add it to your flow
-
-2. **Connecting Nodes**
-   - Click and drag from the source handle (bottom) of one node
-   - Connect it to the target handle (top) of another node
-   - Each source can only connect to one target
-
-3. **Editing Node Content**
-   - Click on any node to select it
-   - The Settings Panel will appear with a text field
-   - Edit the message content and see changes reflected immediately
-
-4. **Saving Your Flow**
-   - Click the "Save Changes" button to persist your flow
-   - The system will validate your flow before saving
-   - Error messages will appear if validation fails
-
-### Flow Validation Rules
-
-- All nodes should be connected in a meaningful way
-- No orphaned nodes (nodes without proper connections)
-- Proper start and end points should be defined
-
-## Future Extensibility
-
-The project is architected with extensibility in mind. Here are planned enhancements:
-
-### Additional Node Types
-- **Decision Nodes**: Conditional branching based on user input
-- **Media Nodes**: Support for images, videos, and files
-- **API Integration Nodes**: External service calls
-- **User Input Nodes**: Forms and data collection
-
-### Enhanced Features
-- **Undo/Redo Functionality**: Operation history management
-- **Flow Templates**: Pre-built conversation templates
-- **Export/Import**: Flow sharing and backup capabilities
-- **Analytics Integration**: Flow performance tracking
-
-## Development Insights
-
-### Code Structure
-```
-src/
-├── components/
-│   ├── FlowBuilder.js      # Main flow component
-│   ├── NodesPanel.js       # Draggable nodes panel
-│   ├── SettingsPanel.js    # Node editing interface
-│   └── nodes/
-│       └── TextNode.js     # Text message node component
-├── hooks/
-│   └── useFlowState.js     # Flow state management
-├── utils/
-│   └── validation.js       # Flow validation logic
-└── styles/
-    └── globals.css         # Global styles
+```bash
+npm install
+npm run dev
 ```
 
-### Key Implementation Decisions
+Visit [http://localhost:3000](http://localhost:3000)
 
-1. **React Flow Choice**: Selected for its robust node-graph capabilities and extensive customization options
-2. **Component Modularity**: Each node type is a separate component for easy extension
-3. **State Management**: Used React hooks for lightweight state management suitable for the current scope
-4. **Validation Strategy**: Implemented client-side validation to provide immediate feedback
+Create workflow → Drag nodes → Connect → Edit → Save
 
-## Performance Considerations
+## Design Decisions
 
-- **Efficient Rendering**: React Flow handles virtual rendering for large flows
-- **State Optimization**: Minimal re-renders through proper state management
-- **Memory Management**: Proper cleanup of event listeners and effects
+### 1. Node Form Architecture
 
-## Challenges Overcome
+**Problem**: Each node type needs different form fields that change dynamically.
 
-1. **Handle Connection Logic**: Implementing the one-to-many relationship between source and target handles
-2. **Dynamic Panel Switching**: Seamless transition between Nodes Panel and Settings Panel
-3. **Flow Validation**: Creating robust validation that prevents invalid flow configurations
-4. **State Persistence**: Managing complex flow state while maintaining performance
+**Solution**: Discriminated unions with Zod
 
-## Testing Strategy
+```typescript
+// src/lib/nodeSchemas.ts
+export const nodeDataSchema = z.discriminatedUnion("type", [
+  startNodeSchema,
+  taskNodeSchema,
+  // ...
+]);
+```
 
-The application can be tested through:
-- **Manual Testing**: Interactive flow creation and validation
-- **Edge Case Testing**: Invalid connections and orphaned nodes
-- **Responsive Testing**: Different screen sizes and devices
+**Why this works**:
+- TypeScript knows exact fields based on node type
+- Runtime validation matches compile-time types
+- Adding new node type = add schema to union
+- Forms get auto-complete for correct fields
 
-## Contributing
+**Alternative considered**: Separate validation logic per form
+- Rejected because it duplicates type definitions
+- No single source of truth
 
-This project welcomes contributions. Key areas for improvement:
-- Additional node types
-- Enhanced UI/UX
-- Performance optimizations
-- Test coverage expansion
+### 2. Dynamic Form Parameters
 
-## License
+Node Data that is used in props are different so saved strategically with BaseNodeType in `src/types/nodeData.ts` also contains a getter from its type infered form BaseNodeType.
 
-This project is developed as part of a technical assessment and is available for educational and demonstration purposes.
+**Problem**: Automated Step nodes need different params based on selected action from API.
 
----
+**Solution**: `useEffect` watches action selection, fetches params from API, dynamically renders inputs
 
-**Author**: [Hrithik Sampson](https://github.com/HrithikSampson)  
-**Project Type**: Frontend Technical Assessment  
-**Company**: BiteSpeed  
-**Technology Focus**: React, Node.js Development
+```typescript
+// src/components/forms/AutomatedStepNodeForm.tsx
+const actions = await mockAPI.automations.getAll();
+selectedAction.params.map(param => <input key={param} />)
+```
+
+**Why this works**:
+- New automation types added to API automatically show in UI
+- No hardcoded param lists in frontend
+- Params come from single source (API)
+
+**Alternative considered**: Hardcode all possible params
+- Rejected because adding new automation requires code change
+
+### 3. Graph Validation Strategy
+
+**Problem**: Need to validate workflow structure before save, not just individual nodes.
+
+**Solution**: Two-layer validation
+
+```typescript
+// Layer 1: Node-level (Zod schemas)
+nodeDataSchema.safeParse(node.data)
+
+// Layer 2: Graph-level (custom validator)
+WorkflowValidator.validateWorkflow(nodes, edges)
+// Checks: start/end nodes, connectivity, orphans
+```
+
+**Why separated**:
+- Node validation reusable in forms
+- Graph validation runs only on save (expensive)
+- Clear separation of concerns
+
+**Alternative considered**: Validate everything on every edit
+- Rejected because too slow for large workflows
+
+### 4. State Management Choice
+
+**Problem**: Workflow state needed by: Canvas, Forms, Navbar, Node components.
+
+**Solution**: Redux Toolkit with async thunks
+
+**Why Redux**:
+- Dispatch from anywhere (form save → update canvas)
+- Navbar can read workflow without prop drilling
+- DevTools show exact state mutations
+- Thunks handle async API calls cleanly
+
+```typescript
+// src/state/workspace/workspaceSlice.ts
+export const workflowSave = createAsyncThunk(
+  'workflows/save',
+  async (_, { getState }) => {
+    await mockAPI.workflows.save(...)
+  }
+);
+```
+
+**Alternative considered**: Context API
+- Rejected because forms 5 levels deep would need multiple contexts
+- Redux dispatch simpler than passing callbacks through tree
+
+### 5. Canvas Implementation
+
+**Problem**: Need pan, zoom, edge routing, node selection.
+
+**Solution**: React Flow library
+
+**Why not build from scratch**:
+- Pan/zoom requires transform matrix math
+- Edge routing needs path algorithms
+- Selection state management complex
+- React Flow does all this, we provide node components
+
+**Custom parts**:
+- Node visual rendering (`concreteNodes/`)
+- Edge styling (custom edge component)
+- Drag-drop logic (sidebar → canvas)
+
+### 6. Mock API Design
+
+**Problem**: Simulate real backend with async operations.
+
+**Solution**: Promise-based functions with delays
+
+- Easily can be used with tanstack
+
+```typescript
+// src/lib/mockApi.ts
+getAll: async (): Promise<AutomationAction[]> => {
+  await new Promise(resolve => setTimeout(resolve, 300));
+  return [...automationActions];
+}
+```
+
+**Why delays matter**:
+- Tests loading states in UI
+- Catches race conditions
+- Makes migration to real API easier (already handling async)
+
+**Structure**:
+- `workflows.*` - CRUD operations
+- `automations.*` - GET automation types
+- `simulate.*` - POST workflow, returns execution steps
+- `export.*` / `import.*` - JSON serialization
+
+### 7. Validation Error Display
+
+**Problem**: Need to show which exact field on which node has error.
+
+**Solution**: Toast notifications with field names and node IDs
+
+```typescript
+errors.forEach(error => {
+  showToast({
+    message: `${error.field}: ${error.message} (Node: ${error.nodeId})`
+  });
+});
+```
+
+**Why toasts**:
+- Non-blocking (user can see canvas)
+- Multiple errors shown sequentially
+- Auto-dismiss keeps UI clean
+
+**Alternative considered**: Inline errors on nodes
+- Rejected because hard to see which specific field
+
+### 8. Workflow Simulation Logic
+
+**Problem**: Execute nodes in correct order without cycles.
+
+**Solution**: BFS traversal from start node
+
+```typescript
+// src/lib/mockApi.ts - simulate.execute
+const executionOrder = getExecutionOrder(edges, startNode.id);
+// BFS returns: [startId, task1, approval1, endId]
+
+for (const nodeId of executionOrder) {
+  const step = await simulateNodeExecution(node);
+  steps.push(step);
+}
+```
+
+**Why BFS**:
+- Handles multiple parallel paths
+- Detects disconnected nodes (won't be in order)
+- Natural execution flow
+
+**What's simulated**:
+- Task nodes: Assign to user
+- Approval nodes: 70% approval rate
+- Automated: Execute action with params
+- End: Complete workflow
+
+## Architecture Highlights
+
+**Modular Node System**
+- Each node type: Visual component + Form + Schema
+- Adding new type: 3 files (component, form, schema)
+
+**Type Safety**
+- Zod schemas generate TypeScript types
+- No manual interface duplication
+- Runtime validation matches compile-time
+
+**Separation of Concerns**
+- `components/` - UI only
+- `lib/` - Business logic and API
+- `state/` - State management
+- `types/` - Shared interfaces
+
+**Extensibility**
+- New node type: Add to `NodeType` enum + schema + components
+- New automation: Add to `automationActions` array
+- New validation rule: Extend `WorkflowValidator`
+
+## Tech Stack Reasoning
+
+**Next.js 14**: App Router, easy deployment, server components for future
+**TypeScript**: Strict mode catches errors at compile time
+**Redux Toolkit**: Complex state, multiple access points, thunks for async
+**Zod**: Runtime validation = compile-time types
+**React Flow**: Handles canvas complexity we don't need to build
+**CSS Modules**: Component-scoped styles.
+
+## Additional Features other than the Required one
+
+- Minimap and Zoom 
+- Node Templates: Template that is dragged from the sidebar and can be put so its Concrete Node type which will be added to the canvas.
+

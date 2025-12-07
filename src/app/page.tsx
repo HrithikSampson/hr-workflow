@@ -13,9 +13,14 @@ export default function Home() {
           Create and manage HR workflows visually with drag-and-drop simplicity
         </p>
 
-        <Link href="/workspace" className={styles.primaryButton}>
-          + New Workflow
-        </Link>
+        <div className={styles.buttonGroup}>
+          <Link href="/workspace" className={styles.primaryButton}>
+            + New Workflow
+          </Link>
+          <Link href="/workflows" className={styles.secondaryButton}>
+            View Workflows
+          </Link>
+        </div>
 
         <div className={styles.features}>
           <div className={styles.feature}>

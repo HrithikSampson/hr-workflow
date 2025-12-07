@@ -26,6 +26,14 @@
   line-height: 1.6;
 }
 
+.buttonGroup {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .primaryButton {
   display: inline-block;
   padding: 16px 48px;
@@ -43,6 +51,24 @@
   background: #2563eb;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+.secondaryButton {
+  display: inline-block;
+  padding: 16px 48px;
+  background: white;
+  color: #3b82f6;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: 2px solid #3b82f6;
+}
+
+.secondaryButton:hover {
+  background: #eff6ff;
+  transform: translateY(-2px);
 }
 
 .features {

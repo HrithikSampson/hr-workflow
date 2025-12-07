@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import FormPortal from "./FormPortal";
 import styles from "./NodeForm.module.css";
 import { AutomatedStepNodeData } from "@/types/nodeData";
+import { mockAPI, AutomationAction } from "@/lib/mockApi";
 
 interface AutomatedStepNodeFormProps {
   isOpen: boolean;
@@ -9,34 +10,6 @@ interface AutomatedStepNodeFormProps {
   onSave: (data: Partial<AutomatedStepNodeData>) => void;
   initialData?: Partial<AutomatedStepNodeData>;
 }
-
-const MOCK_ACTIONS = [
-  {
-    id: "send_email",
-    name: "Send Email",
-    parameters: ["recipient", "subject", "body"],
-  },
-  {
-    id: "generate_pdf",
-    name: "Generate PDF Document",
-    parameters: ["template", "fileName"],
-  },
-  {
-    id: "create_ticket",
-    name: "Create Support Ticket",
-    parameters: ["priority", "category", "description"],
-  },
-  {
-    id: "update_database",
-    name: "Update Database Record",
-    parameters: ["table", "recordId", "fields"],
-  },
-  {
-    id: "send_notification",
-    name: "Send Notification",
-    parameters: ["channel", "message", "recipients"],
-  },
-];
 
 const AutomatedStepNodeForm: React.FC<AutomatedStepNodeFormProps> = ({
   isOpen,
@@ -49,18 +22,38 @@ const AutomatedStepNodeForm: React.FC<AutomatedStepNodeFormProps> = ({
   const [actionParameters, setActionParameters] = useState<Record<string, any>>(
     initialData.actionParameters || {}
   );
+  const [actions, setActions] = useState<AutomationAction[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const selectedAction = MOCK_ACTIONS.find((a) => a.id === action);
+  // Fetch automation actions from API on mount
+  useEffect(() => {
+    const fetchActions = async () => {
+      try {
+        setLoading(true);
+        const fetchedActions = await mockAPI.automations.getAll();
+        setActions(fetchedActions);
+      } catch (error) {
+        console.error("Failed to fetch automation actions:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchActions();
+  }, []);
+
+  const selectedAction = actions.find((a) => a.id === action);
 
   useEffect(() => {
     if (selectedAction) {
       const newParams: Record<string, any> = {};
-      selectedAction.parameters.forEach((param) => {
+      selectedAction.params.forEach((param: string) => {
         newParams[param] = actionParameters[param] || "";
       });
       setActionParameters(newParams);
     }
-  }, [action]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [action, selectedAction]);
 
   const handleParameterChange = (param: string, value: any) => {
     setActionParameters({ ...actionParameters, [param]: value });
@@ -94,23 +87,26 @@ const AutomatedStepNodeForm: React.FC<AutomatedStepNodeFormProps> = ({
           className={styles.select}
           value={action}
           onChange={(e) => setAction(e.target.value)}
+          disabled={loading}
         >
-          <option value="">Select an action</option>
-          {MOCK_ACTIONS.map((act) => (
+          <option value="">
+            {loading ? "Loading actions..." : "Select an action"}
+          </option>
+          {actions.map((act) => (
             <option key={act.id} value={act.id}>
-              {act.name}
+              {act.label}
             </option>
           ))}
         </select>
-        <p className={styles.hint}>
-          Choose the automated action to perform at this step
-        </p>
+        {selectedAction?.description && (
+          <p className={styles.hint}>{selectedAction.description}</p>
+        )}
       </div>
 
       {selectedAction && (
         <div className={styles.formGroup}>
           <label className={styles.label}>Action Parameters</label>
-          {selectedAction.parameters.map((param) => (
+          {selectedAction.params.map((param: string) => (
             <div key={param} style={{ marginBottom: "12px" }}>
               <label className={styles.label} style={{ fontSize: "13px" }}>
                 {param.charAt(0).toUpperCase() + param.slice(1).replace(/([A-Z])/g, " $1")}

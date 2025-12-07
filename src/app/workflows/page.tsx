@@ -2,50 +2,37 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import styles from "./workflows.module.css";
-
-interface Workflow {
-  id: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  nodeCount: number;
-}
+import { mockAPI, Workflow } from "@/lib/mockApi";
 
 export default function WorkflowsPage() {
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [isCreating, setIsCreating] = useState(false);
   const [newWorkflowName, setNewWorkflowName] = useState("");
+  const router = useRouter();
 
-  useEffect(() => {
-    const savedWorkflows = localStorage.getItem("workflows");
-    if (savedWorkflows) {
-      setWorkflows(JSON.parse(savedWorkflows));
-    }
-  }, []);
-
-  const createWorkflow = () => {
-    if (!newWorkflowName.trim()) return;
-
-    const newWorkflow: Workflow = {
-      id: Date.now().toString(),
-      name: newWorkflowName,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      nodeCount: 0,
-    };
-
-    const updatedWorkflows = [...workflows, newWorkflow];
-    setWorkflows(updatedWorkflows);
-    localStorage.setItem("workflows", JSON.stringify(updatedWorkflows));
-    setNewWorkflowName("");
-    setIsCreating(false);
+  const loadWorkflows = async () => {
+    const allWorkflows = await mockAPI.workflows.getAll();
+    setWorkflows(allWorkflows);
   };
 
-  const deleteWorkflow = (id: string) => {
-    const updatedWorkflows = workflows.filter((w) => w.id !== id);
-    setWorkflows(updatedWorkflows);
-    localStorage.setItem("workflows", JSON.stringify(updatedWorkflows));
+  useEffect(() => {
+    loadWorkflows();
+  }, []);
+
+  const createWorkflow = async () => {
+    if (!newWorkflowName.trim()) return;
+
+    const newWorkflow = await mockAPI.workflows.create(newWorkflowName);
+    setNewWorkflowName("");
+    setIsCreating(false);
+    router.push(`/workspace?id=${newWorkflow.id}`);
+  };
+
+  const deleteWorkflow = async (id: string) => {
+    await mockAPI.workflows.delete(id);
+    loadWorkflows();
   };
 
   return (
@@ -136,7 +123,7 @@ export default function WorkflowsPage() {
                 </div>
                 <div className={styles.cardMeta}>
                   <span className={styles.metaItem}>
-                    {workflow.nodeCount} nodes
+                    {workflow.nodes.length} nodes
                   </span>
                   <span className={styles.metaItem}>
                     Updated {new Date(workflow.updatedAt).toLocaleDateString()}

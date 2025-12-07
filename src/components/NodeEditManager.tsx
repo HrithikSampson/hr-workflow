@@ -11,6 +11,7 @@ import {
   AutomatedStepNodeForm,
 } from "./forms";
 import { NodeType } from "./node.types/nodeTypes";
+import { NodeDataValidator } from "@/types/nodeData";
 
 const NodeEditManager: React.FC = () => {
   const dispatch = useDispatch();
@@ -49,12 +50,18 @@ const NodeEditManager: React.FC = () => {
         ...data,
       };
 
+      if (!NodeDataValidator.validateRequiredFields(updatedData)) {
+        alert("Please fill in all required fields before saving.");
+        return;
+      }
+
       dispatch(
         updateCurrentWorkspace({
           nodeId: selectedNode.id,
           data: updatedData,
         })
       );
+      handleClose();
     }
   };
 

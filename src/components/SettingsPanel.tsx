@@ -14,17 +14,17 @@ const SettingsPanel = () => {
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       dispatch(updateCurrentWorkspace({ content: event.target.value }));
     },
-    [],
+    [dispatch],
   );
   const value = useSelector(
     (state: RootState) =>
       state.workflow.currentWorkspace.nodes.find(
         (nds) => nds.id === state.workflow.selectedNodeId,
-      )?.data.text,
+      )?.data.content,
   );
   const onClick = useCallback(() => {
     dispatch(selectNode(null));
-  }, []);
+  }, [dispatch]);
   return (
     <div className={styles.container}>
       <div className={styles.header}>

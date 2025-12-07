@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -17,7 +18,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-redux": "^9.1.2",
-    "reactflow": "^11.11.3"
+    "reactflow": "^11.11.3",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@types/node": "^20",

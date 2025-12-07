@@ -1,5 +1,7 @@
 import Workspace from "@/components/Workspace";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { NodeData } from "@/types/nodeData";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { mockAPI } from "@/lib/mockApi";
 
 interface EdgeStateType {
   animated: boolean;
@@ -18,10 +20,7 @@ interface NodeType {
     x: number;
     y: number;
   };
-  data: {
-    content: string;
-    text: string;
-  };
+  data: NodeData;
   files?: File[];
 }
 
@@ -32,11 +31,13 @@ interface WorkSpaceType {
 interface WorkflowCollection {
   workflow: WorkSpaceType[];
   currentWorkspace: WorkSpaceType;
+  currentWorkflowId: string | null;
   selectedNodeId: string | null;
 }
 const initialState: WorkflowCollection = {
   workflow: [],
   currentWorkspace: { nodes: [], edges: [] },
+  currentWorkflowId: null,
   selectedNodeId: null,
 };
 const initialWorkflow: WorkSpaceType = {
@@ -44,12 +45,31 @@ const initialWorkflow: WorkSpaceType = {
   edges: [],
 };
 
+export const workflowSave = createAsyncThunk(
+  'workflows/save',
+  async (_, { getState }) => {
+    const state = getState() as { workflow: WorkflowCollection };
+    if (state.workflow.currentWorkflowId) {
+      await mockAPI.workflows.save(
+        state.workflow.currentWorkflowId,
+        state.workflow.currentWorkspace.nodes,
+        state.workflow.currentWorkspace.edges
+      );
+    }
+  }
+);
+
 const workflowSlice = createSlice({
   name: "workflows",
   initialState,
   reducers: {
-    workflowSave: (state) => {
-      state.workflow.push(state.currentWorkspace);
+    setCurrentWorkflowId: (state, action: PayloadAction<string | null>) => {
+      state.currentWorkflowId = action.payload;
+    },
+    loadWorkflow: (state, action: PayloadAction<WorkSpaceType>) => {
+      state.currentWorkspace = action.payload;
+    },
+    resetWorkspace: (state) => {
       state.currentWorkspace = initialWorkflow;
       state.selectedNodeId = null;
     },
@@ -63,13 +83,13 @@ const workflowSlice = createSlice({
       );
       if (nodeWithselectedId.length == 1) {
         if (action.payload.content !== undefined) {
-          nodeWithselectedId[0].data.text = action.payload.content;
+          nodeWithselectedId[0].data.content = action.payload.content;
         }
         if (action.payload.data !== undefined) {
           nodeWithselectedId[0].data = {
             ...nodeWithselectedId[0].data,
             ...action.payload.data,
-          };
+          } as NodeData;
         }
       } else {
         throw new Error("node which is updated has no ID or more than one ID");
@@ -87,15 +107,32 @@ const workflowSlice = createSlice({
     changeNodesPosition: (state, action: PayloadAction<NodeType[]>) => {
       state.currentWorkspace.nodes = action.payload;
     },
+    removeNodes: (state, action: PayloadAction<string[]>) => {
+      state.currentWorkspace.nodes = state.currentWorkspace.nodes.filter(
+        (node) => !action.payload.includes(node.id)
+      );
+      state.currentWorkspace.edges = state.currentWorkspace.edges.filter(
+        (edge) => !action.payload.includes(edge.source) && !action.payload.includes(edge.target)
+      );
+    },
+    removeEdges: (state, action: PayloadAction<string[]>) => {
+      state.currentWorkspace.edges = state.currentWorkspace.edges.filter(
+        (edge) => !action.payload.includes(edge.id)
+      );
+    },
   },
 });
 export const {
-  workflowSave,
+  setCurrentWorkflowId,
+  loadWorkflow,
+  resetWorkspace,
   updateCurrentWorkspace,
   addNodes,
   addEdges,
   selectNode,
   changeNodesPosition,
+  removeNodes,
+  removeEdges,
 } = workflowSlice.actions;
 export default workflowSlice.reducer;
 export type { EdgeStateType, NodeType };

@@ -5,23 +5,67 @@
   top: 0;
   min-height: 60px;
   height: 5vh;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
 }
-.savebutton {
-  position: relative;
-  color: cornflowerblue;
-  margin: 5px;
-  border-width: 1px;
-  border-color: cornflowerblue;
+
+.rightButtons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.backButton {
+  color: #555;
+  border: 1px solid #ccc;
+  background-color: transparent;
   height: fit-content;
   font-size: small;
-  padding: 10px;
-  right: 10vw;
-  border-radius: 1px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.backButton:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+.savebutton {
+  color: cornflowerblue;
+  border: 1px solid cornflowerblue;
+  background-color: transparent;
+  height: fit-content;
+  font-size: small;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .savebutton:hover {
   box-shadow: 0 0 5px cornflowerblue;
+  background-color: rgba(100, 149, 237, 0.1);
+}
+
+.exportButton,
+.importButton {
+  color: #555;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  height: fit-content;
+  font-size: small;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.exportButton:hover,
+.importButton:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
 }
 .errorMessage {
   padding: 10px;
