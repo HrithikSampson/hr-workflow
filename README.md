@@ -241,4 +241,5 @@ for (const nodeId of executionOrder) {
 
 - Minimap and Zoom 
 - Node Templates: Template that is dragged from the sidebar and can be put so its Concrete Node type which will be added to the canvas.
+- Import and Export: export works after saving.
 
