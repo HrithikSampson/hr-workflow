@@ -1,0 +1,13 @@
+.workspacePage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.workspaceContainer {
+  display: flex;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}

@@ -1,0 +1,301 @@
+.container {
+  min-height: 100vh;
+  background: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 80px;
+  height: 64px;
+  border-bottom: 1px solid #eee;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+}
+
+.navLink {
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navLink:hover {
+  color: #0099ff;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 80px;
+}
+
+.titleBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+}
+
+.createButton {
+  background: #000;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.createButton:hover {
+  background: #333;
+}
+
+.createForm {
+  background: #fafafa;
+  padding: 32px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid #eee;
+}
+
+.input {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 16px;
+  margin-bottom: 16px;
+  font-family: inherit;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #0099ff;
+}
+
+.formButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.saveButton {
+  background: #000;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.saveButton:hover {
+  background: #333;
+}
+
+.cancelButton {
+  background: #f5f5f5;
+  color: #000;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cancelButton:hover {
+  background: #eee;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 120px 40px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.emptyIcon {
+  font-size: 120px;
+  margin-bottom: 24px;
+  opacity: 0.5;
+}
+
+.emptyTitle {
+  font-size: 36px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.emptyDescription {
+  font-size: 18px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.emptyButton {
+  background: #000;
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.emptyButton:hover {
+  background: #333;
+}
+
+.workflowGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.workflowCard {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  padding: 32px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.workflowCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.workflowName {
+  font-size: 24px;
+  font-weight: 600;
+  color: #000;
+  margin: 0;
+  flex: 1;
+  word-break: break-word;
+}
+
+.deleteButton {
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.deleteButton:hover {
+  background: #ffe0e0;
+  color: #ff0000;
+}
+
+.cardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.metaItem {
+  color: #666;
+  font-size: 14px;
+}
+
+.openButton {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.openButton:hover {
+  background: #333;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 20px 24px;
+  }
+
+  .main {
+    padding: 40px 24px;
+  }
+
+  .titleBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .createButton,
+  .emptyButton {
+    width: 100%;
+  }
+
+  .workflowGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .emptyState {
+    padding: 80px 20px;
+  }
+
+  .emptyIcon {
+    font-size: 80px;
+  }
+
+  .emptyTitle {
+    font-size: 28px;
+  }
+}

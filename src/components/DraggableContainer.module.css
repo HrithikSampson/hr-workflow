@@ -1,0 +1,12 @@
+.container {
+  display: contents;
+}
+
+.draggableContainer {
+  cursor: grab;
+  user-select: none;
+}
+
+.draggableContainer:active {
+  cursor: grabbing;
+}
