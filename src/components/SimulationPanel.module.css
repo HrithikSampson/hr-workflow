@@ -1,0 +1,194 @@
+.panel {
+  position: fixed;
+  right: 20px;
+  top: 80px;
+  width: 400px;
+  max-height: calc(100vh - 100px);
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.header {
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f8f9fa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.spinner {
+  font-size: 14px;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.content {
+  overflow-y: auto;
+  flex: 1;
+  padding: 16px;
+}
+
+.summary {
+  background: #f5f5f5;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.summaryItem:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-weight: 500;
+  color: #666;
+}
+
+.successStatus {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.errorStatus {
+  color: #c62828;
+  font-weight: 600;
+}
+
+.errors {
+  background: #ffebee;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.errors h4 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #c62828;
+  font-weight: 600;
+}
+
+.error {
+  font-size: 13px;
+  color: #b71c1c;
+  margin-bottom: 4px;
+}
+
+.steps {
+  margin-top: 8px;
+}
+
+.steps h4 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.step {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.step:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.stepNumber {
+  background: #1976d2;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.stepTitle {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  flex: 1;
+}
+
+.stepType {
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
+.stepDetails {
+  margin-top: 8px;
+}
+
+.detailsText {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.outputDetails {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.outputDetails summary {
+  cursor: pointer;
+  color: #1976d2;
+  font-weight: 500;
+  padding: 4px 0;
+}
+
+.outputDetails summary:hover {
+  text-decoration: underline;
+}
+
+.outputDetails pre {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px;
+  margin-top: 4px;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 11px;
+  color: #333;
+}
+
+.stepTimestamp {
+  font-size: 11px;
+  color: #999;
+  margin-top: 4px;
+  text-align: right;
+}

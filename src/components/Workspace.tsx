@@ -34,6 +34,7 @@ import {
 import { EdgeStateType } from "@/state/workspace/workspaceSlice";
 import objectOfNodes from "./node.types/objectOfNodes";
 import NodeEditManager from "./NodeEditManager";
+import SimulationPanel from "./SimulationPanel";
 import { mockAPI } from "@/lib/mockApi";
 import { NodeDataValidator } from "@/types/nodeData";
 
@@ -254,6 +255,7 @@ const Workspace = () => {
         <Controls />
       </ReactFlow>
       <NodeEditManager />
+      <SimulationPanel />
     </div>
   );
 };

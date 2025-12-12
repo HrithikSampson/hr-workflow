@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/state/store";
 import { workflowSave, loadWorkflow } from "@/state/workspace/workspaceSlice";
 import { showToast } from "@/state/toast/toastSlice";
+import { runSimulation } from "@/state/simulation/simulationSlice";
 import { WorkflowValidator } from "@/lib/workflowValidation";
 import { mockAPI } from "@/lib/mockApi";
 
@@ -40,6 +41,9 @@ const Navbar = () => {
 
     await dispatch(workflowSave());
     dispatch(showToast({ message: "Workflow saved successfully!", type: "success" }));
+
+    // Run simulation after successful save
+    await dispatch(runSimulation({ nodes: state.nodes, edges: state.edges }));
   }, [state, dispatch]);
 
   const handleBack = useCallback(() => {
